@@ -35,7 +35,26 @@ Color Palette from Color Hunt:
     pointer-events: none;
 }
 
+.entry-icon-1 {
+    top: 5%;
+    left: 10%;
+    width: 25vw;
+    max-width: 180px;
+    z-index: 1;
+}
+
+.entry-icon-2 {
+    bottom: 5%;
+    right: 10%;
+    width: 28vw;
+    max-width: 220px;
+    z-index: 1;
+    animation-delay: -3s;
+}
+
 .entry-card {
+    position: relative;
+    z-index: 2;
     text-align: center;
     max-width: 500px;
 }
@@ -67,8 +86,8 @@ Color Palette from Color Hunt:
     border-radius: 50px;
     cursor: pointer;
     box-shadow: 0 10px 25px rgba(137, 152, 109, 0.4);
-    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-    animation: pulse 2s infinite;
+    transition: transform 0.6s ease, background-color 0.6s ease, box-shadow 0.6s ease;
+    animation: pulse 4s infinite;
 }
 
 .open-btn:hover {
@@ -94,6 +113,11 @@ body {
     background-color: var(--color-cream);
     color: var(--color-dark-green);
     overflow-x: hidden;
+}
+
+body.no-scroll, html.no-scroll {
+    overflow: hidden !important;
+    height: 100% !important;
 }
 
 .hero {
@@ -290,26 +314,31 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 2.5rem;
+    gap: 0;
     margin-bottom: 2.5rem;
     color: var(--color-dark-green);
+    width: 100%;
 }
 
 .meta-left {
+    flex: 1;
     text-align: right;
     display: flex;
     flex-direction: column;
+    padding-right: 2.5rem;
 }
 
 .meta-right {
+    flex: 1;
     text-align: left;
     display: flex;
     flex-direction: column;
+    padding-left: 2.5rem;
 }
 
 .meta-divider {
     width: 2px;
-    height: 480px; /* Doubled from 240px */
+    height: 250px;
     background-color: var(--color-dark-green);
     border-radius: 2px;
 }
@@ -681,6 +710,16 @@ body {
 
 .map-container iframe {
     display: block; /* Prevents inline gap at bottom */
+}
+
+/* Footer Section Styles */
+.footer {
+    padding: 3rem 0;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--color-medium-green);
+    letter-spacing: 1px;
+    opacity: 0.8;
 }
 
 /* Decorative Floating Graphic Styles */

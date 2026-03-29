@@ -256,6 +256,39 @@ document.addEventListener('DOMContentLoaded', () => {
         audio.load();
     }
 
+    // --- INVITATION OPENING LOGIC ---
+    // Moved outside the (audio && playBtn) block to ensure it always works
+    const entryOverlay = document.getElementById('entry-overlay');
+    const openBtn = document.getElementById('open-invitation-btn');
+
+    function startEverything() {
+        if (!hasInteracted) {
+            hasInteracted = true;
+            
+            // Play ambient music
+            if (ambientAudio) {
+                ambientAudio.play().catch(e => console.log("Ambient autoplay blocked"));
+            }
+
+            // Allow scrolling after the invitation is opened
+            document.body.classList.remove('no-scroll');
+            document.documentElement.classList.remove('no-scroll');
+
+            // Fade out overlay
+            if (entryOverlay) {
+                entryOverlay.classList.add('fade-out');
+                // Remove from DOM after transition
+                setTimeout(() => {
+                    entryOverlay.style.display = 'none';
+                }, 1000);
+            }
+        }
+    }
+
+    if (openBtn) {
+        openBtn.addEventListener('click', startEverything);
+    }
+
     if (audio && playBtn) {
         // Initial track load
         loadTrack(currentTrackIndex);
@@ -264,43 +297,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ambientAudio.volume = 0.4; // Higher volume for background music
         }
 
-        const entryOverlay = document.getElementById('entry-overlay');
-        const openBtn = document.getElementById('open-invitation-btn');
-
-        function startEverything() {
-            if (!hasInteracted) {
-                hasInteracted = true;
-                
-                // Play ambient music
-                if (ambientAudio) {
-                    ambientAudio.play().catch(e => console.log("Ambient autoplay blocked"));
-                }
-
-                // Check if the main playlist audio should also play automatically
-                // Usually we just start the ambient background music
-                // If they want the Elvis song to start too, we can do audio.play()
-
-                // Fade out overlay
-                if (entryOverlay) {
-                    entryOverlay.classList.add('fade-out');
-                    // Remove from DOM after transition
-                    setTimeout(() => {
-                        entryOverlay.style.display = 'none';
-                    }, 1000);
-                }
-            }
-        }
-
-        if (openBtn) {
-            openBtn.addEventListener('click', startEverything);
-        }
-
-        // Handle first interaction for autoplay fallback
-        document.addEventListener('click', () => {
-            if (!hasInteracted) {
-                startEverything();
-            }
-        }, { once: true });
 
         function formatTime(seconds) {
             if (isNaN(seconds)) return "0:00";
