@@ -274,6 +274,16 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.remove('no-scroll');
             document.documentElement.classList.remove('no-scroll');
 
+            // Scroll indicator logic
+            const scrollIndicator = document.getElementById('scroll-indicator');
+            const hideOnScroll = () => {
+                if (window.scrollY > 50) {
+                    scrollIndicator.classList.add('hidden');
+                    window.removeEventListener('scroll', hideOnScroll);
+                }
+            };
+            window.addEventListener('scroll', hideOnScroll);
+
             // Fade out overlay
             if (entryOverlay) {
                 entryOverlay.classList.add('fade-out');
