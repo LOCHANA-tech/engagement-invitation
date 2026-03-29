@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lochana & Manodya - Engagement</title>
+    
+    <!-- Google Fonts for beautiful typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Birthstone+Bounce:wght@400;500&family=Inter:wght@300;400;600&family=Love+Light&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="hero">
+        <img src="top.png" alt="Lochana & Manodya Engagement" id="bg-image" class="hero-image">
+        <div class="hero-overlay"></div>
+        <!-- Container for side.png falling like rain -->
+        <div class="falling-rain" id="rain-container"></div>
+
+        <div class="hero-content">
+            <div class="hero-arc"></div>
+            <h1 class="names">Lochana & Manodya</h1>
+            <p class="subtitle">Are getting engaged!</p>
+            <img src="ring.png" alt="Engagement Ring" class="hero-ring">
+        </div>
+    </header>
+
+    <main class="content">
+        <!-- Decorative graphics -->
+        <img src="side.png" alt="Decorative element" class="decorative-icon icon-1">
+        <img src="side.png" alt="Decorative element" class="decorative-icon icon-2">
+        <img src="side.png" alt="Decorative element" class="decorative-icon icon-3">
+        <img src="side.png" alt="Decorative element" class="decorative-icon icon-4">
+        <img src="side.png" alt="Decorative element" class="decorative-icon icon-5">
+        <img src="side.png" alt="Decorative element" class="decorative-icon icon-6">
+        <img src="side.png" alt="Decorative element" class="decorative-icon icon-7">
+        <img src="side.png" alt="Decorative element" class="decorative-icon icon-8">
+        <img src="side.png" alt="Decorative element" class="decorative-icon icon-9">
+        <img src="side.png" alt="Decorative element" class="decorative-icon icon-10">
+        <img src="side.png" alt="Decorative element" class="decorative-icon icon-11">
+        <img src="side.png" alt="Decorative element" class="decorative-icon icon-12">
+        <img src="side.png" alt="Decorative element" class="decorative-icon icon-13">
+        <img src="side.png" alt="Decorative element" class="decorative-icon icon-14">
+        <img src="side.png" alt="Decorative element" class="decorative-icon icon-15">
+        
+        <section class="details">
+            <h2>Join us in celebrating our love</h2>
+            <p>We are delighted to invite you to celebrate our engagement and share this special moment with us. Your presence will make our day truly memorable.</p>
+        </section>
+
+        <section class="gallery-section details">
+            <h2 class="section-title">A Journey of Memories</h2>
+            <div id="album-book" class="album-book">
+                <div id="book-container" class="book-container">
+                    <!-- Pages will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <section class="player-section details">
+            <div class="audio-player">
+                <div class="player-controls">
+                    <button id="prev-btn" class="ctrl-btn" title="Previous">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                    </button>
+                    <button id="play-pause-btn" class="ctrl-btn play-btn" title="Play">
+                        <svg id="play-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        <svg id="pause-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                    </button>
+                    <button id="next-btn" class="ctrl-btn" title="Next">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+                    </button>
+                </div>
+                <div class="seek-container">
+                    <span id="current-time">0:00</span>
+                    <input type="range" id="seek-bar" value="0" min="0" max="100" step="1">
+                    <span id="duration">0:00</span>
+                </div>
+                <audio id="bg-audio" src="Elvis Presley - Can't Help Falling in Love (Lyrics).mp3" preload="metadata"></audio>
+            </div>
+        </section>
+
+        <section class="countdown-section details">
+            <div class="event-meta">
+                <div class="meta-left">
+                    <span class="meta-date">May 6th, 2026</span>
+                    <span class="meta-time">8:30 AM</span>
+                </div>
+                <div class="meta-divider"></div>
+                <div class="meta-right">
+                    <span class="meta-venue">Hotel Shans</span>
+                    <span class="meta-city">Galigamuwa</span>
+                </div>
+            </div>
+            
+            <h3 class="countdown-title">We are getting close in each second</h3>
+            <div class="flip-clock" id="flip-clock">
+                <div class="flip-unit-wrapper">
+                    <div class="flip-unit" id="unit-days"></div>
+                    <span class="flip-label">Days</span>
+                </div>
+                <div class="flip-unit-wrapper">
+                    <div class="flip-unit" id="unit-hours"></div>
+                    <span class="flip-label">Hours</span>
+                </div>
+                <div class="flip-unit-wrapper">
+                    <div class="flip-unit" id="unit-minutes"></div>
+                    <span class="flip-label">Minutes</span>
+                </div>
+                <div class="flip-unit-wrapper">
+                    <div class="flip-unit" id="unit-seconds"></div>
+                    <span class="flip-label">Seconds</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="map-section details">
+            <h2>Direction to the venue</h2>
+            <div class="map-container">
+                <iframe 
+                    src="https://maps.google.com/maps?q=Hotel%20Shans,%20Galigamuwa&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                    width="100%" 
+                    height="450" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </section>
+    </main>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
