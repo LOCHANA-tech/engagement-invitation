@@ -13,6 +13,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Premium Entry Overlay for Autoplay -->
+    <div id="entry-overlay" class="entry-overlay">
+        <div class="entry-card">
+            <h1 class="entry-names">Lochana & Manodya</h1>
+            <p class="entry-welcome">We are getting engaged!</p>
+            <button id="open-invitation-btn" class="open-btn">Open Invitation</button>
+        </div>
+    </div>
+
     <header class="hero">
         <img src="top.png" alt="Lochana & Manodya Engagement" id="bg-image" class="hero-image">
         <div class="hero-overlay"></div>
@@ -50,6 +59,40 @@
             <p>We are delighted to invite you to celebrate our engagement and share this special moment with us. Your presence will make our day truly memorable.</p>
         </section>
 
+        <section class="countdown-section details">
+            <div class="event-meta">
+                <div class="meta-left">
+                    <span class="meta-date">May 6th, 2026</span>
+                    <span class="meta-time">9:00 AM</span>
+                </div>
+                <div class="meta-divider"></div>
+                <div class="meta-right">
+                    <span class="meta-venue">Hotel Shans</span>
+                    <span class="meta-city">Galigamuwa</span>
+                </div>
+            </div>
+            
+            <h3 class="countdown-title">We are getting close in each second</h3>
+            <div class="flip-clock" id="flip-clock">
+                <div class="flip-unit-wrapper">
+                    <div class="flip-unit" id="unit-days"></div>
+                    <span class="flip-label">Days</span>
+                </div>
+                <div class="flip-unit-wrapper">
+                    <div class="flip-unit" id="unit-hours"></div>
+                    <span class="flip-label">Hours</span>
+                </div>
+                <div class="flip-unit-wrapper">
+                    <div class="flip-unit" id="unit-minutes"></div>
+                    <span class="flip-label">Minutes</span>
+                </div>
+                <div class="flip-unit-wrapper">
+                    <div class="flip-unit" id="unit-seconds"></div>
+                    <span class="flip-label">Seconds</span>
+                </div>
+            </div>
+        </section>
+
         <section class="gallery-section details">
             <h2 class="section-title">A Journey of Memories</h2>
             <div id="album-book" class="album-book">
@@ -78,41 +121,9 @@
                     <input type="range" id="seek-bar" value="0" min="0" max="100" step="1">
                     <span id="duration">0:00</span>
                 </div>
-                <audio id="bg-audio" src="Elvis Presley - Can't Help Falling in Love (Lyrics).mp3" preload="metadata"></audio>
-            </div>
-        </section>
-
-        <section class="countdown-section details">
-            <div class="event-meta">
-                <div class="meta-left">
-                    <span class="meta-date">May 6th, 2026</span>
-                    <span class="meta-time">8:30 AM</span>
-                </div>
-                <div class="meta-divider"></div>
-                <div class="meta-right">
-                    <span class="meta-venue">Hotel Shans</span>
-                    <span class="meta-city">Galigamuwa</span>
-                </div>
-            </div>
-            
-            <h3 class="countdown-title">We are getting close in each second</h3>
-            <div class="flip-clock" id="flip-clock">
-                <div class="flip-unit-wrapper">
-                    <div class="flip-unit" id="unit-days"></div>
-                    <span class="flip-label">Days</span>
-                </div>
-                <div class="flip-unit-wrapper">
-                    <div class="flip-unit" id="unit-hours"></div>
-                    <span class="flip-label">Hours</span>
-                </div>
-                <div class="flip-unit-wrapper">
-                    <div class="flip-unit" id="unit-minutes"></div>
-                    <span class="flip-label">Minutes</span>
-                </div>
-                <div class="flip-unit-wrapper">
-                    <div class="flip-unit" id="unit-seconds"></div>
-                    <span class="flip-label">Seconds</span>
-                </div>
+                <audio id="bg-audio" preload="metadata"></audio>
+                <!-- Background ambient song (Requested to play in loop at low volume) -->
+                <audio id="ambient-audio" src="music/12 dancing princesses theme song.mp3" loop preload="auto"></audio>
             </div>
         </section>
 

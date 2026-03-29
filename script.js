@@ -95,8 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initFlipClock() {
-        // Target: May 6th, 2026 at 8:30 AM local time
-        const targetDate = new Date('2026-05-06T08:30:00').getTime();
+        // Target: May 6th, 2026 at 9:00 AM local time
+        const targetDate = new Date('2026-05-06T09:00:00').getTime();
 
         function update() {
             const now = new Date().getTime();
@@ -132,12 +132,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- GALLERY LOGIC ---
     const albumImages = [
-        'album/Gemini_Generated_Image_36zuip36zuip36zu.png',
-        'album/Gemini_Generated_Image_94a6pl94a6pl94a6.png',
+        'album/Gemini_Generated_Image_4upx7a4upx7a4upx.png',
+        'album/Gemini_Generated_Image_arhmnnarhmnnarhm.png',
+        'album/Gemini_Generated_Image_g3gg6dg3gg6dg3gg.png',
         'album/Gemini_Generated_Image_h3x0m9h3x0m9h3x0.png',
         'album/Gemini_Generated_Image_hy7gemhy7gemhy7g.png',
+        'album/Gemini_Generated_Image_oqmq4moqmq4moqmq.png',
         'album/Gemini_Generated_Image_ran7rsran7rsran7.png',
-        'album/Gemini_Generated_Image_t02gayt02gayt02g.png',
         'album/Gemini_Generated_Image_xbqp2lxbqp2lxbqp.png',
         'album/Gemini_Generated_Image_yl8d6hyl8d6hyl8d.png'
     ];
@@ -221,6 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- MP3 PLAYER LOGIC ---
     const audio = document.getElementById('bg-audio');
+    const ambientAudio = document.getElementById('ambient-audio');
     const playBtn = document.getElementById('play-pause-btn');
     const playIcon = document.getElementById('play-icon');
     const pauseIcon = document.getElementById('pause-icon');
@@ -228,7 +230,78 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentTimeEl = document.getElementById('current-time');
     const durationEl = document.getElementById('duration');
 
+    const playlist = [
+        'Elvis Presley - Can\'t Help Falling in Love (Lyrics).mp3',
+        'music/Lavender\'s Blue Dilly Dilly - Lyrics (Cinderella 2015 Movie Soundtrack Song).mp3',
+        'music/Mandy Moore, Zachary Levi - I See the Light (From TangledSing-Along).mp3',
+        'music/Stephen Sanchez - Until I Found You (Lyrics).mp3'
+    ];
+
+    let currentTrackIndex = 0;
+    let isPlaying = false;
+    let hasInteracted = false;
+
+    // Shuffle playlist (Fisher-Yates)
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+    
+    shuffleArray(playlist);
+
+    function loadTrack(index) {
+        audio.src = playlist[index];
+        audio.load();
+    }
+
     if (audio && playBtn) {
+        // Initial track load
+        loadTrack(currentTrackIndex);
+        
+        if (ambientAudio) {
+            ambientAudio.volume = 0.4; // Higher volume for background music
+        }
+
+        const entryOverlay = document.getElementById('entry-overlay');
+        const openBtn = document.getElementById('open-invitation-btn');
+
+        function startEverything() {
+            if (!hasInteracted) {
+                hasInteracted = true;
+                
+                // Play ambient music
+                if (ambientAudio) {
+                    ambientAudio.play().catch(e => console.log("Ambient autoplay blocked"));
+                }
+
+                // Check if the main playlist audio should also play automatically
+                // Usually we just start the ambient background music
+                // If they want the Elvis song to start too, we can do audio.play()
+
+                // Fade out overlay
+                if (entryOverlay) {
+                    entryOverlay.classList.add('fade-out');
+                    // Remove from DOM after transition
+                    setTimeout(() => {
+                        entryOverlay.style.display = 'none';
+                    }, 1000);
+                }
+            }
+        }
+
+        if (openBtn) {
+            openBtn.addEventListener('click', startEverything);
+        }
+
+        // Handle first interaction for autoplay fallback
+        document.addEventListener('click', () => {
+            if (!hasInteracted) {
+                startEverything();
+            }
+        }, { once: true });
+
         function formatTime(seconds) {
             if (isNaN(seconds)) return "0:00";
             const min = Math.floor(seconds / 60);
@@ -236,7 +309,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return `${min}:${sec < 10 ? '0' : ''}${sec}`;
         }
 
-        // Load metadata to get song duration
         audio.addEventListener('loadedmetadata', () => {
             seekBar.max = audio.duration;
             durationEl.textContent = formatTime(audio.duration);
@@ -248,46 +320,83 @@ document.addEventListener('DOMContentLoaded', () => {
                 playIcon.style.display = 'none';
                 pauseIcon.style.display = 'block';
                 playBtn.title = 'Pause';
-                // Fallback in case metadata event didn't fire
-                durationEl.textContent = formatTime(audio.duration); 
-                seekBar.max = audio.duration;
+                isPlaying = true;
             } else {
                 audio.pause();
                 playIcon.style.display = 'block';
                 pauseIcon.style.display = 'none';
                 playBtn.title = 'Play';
+                isPlaying = false;
             }
         });
 
         audio.addEventListener('timeupdate', () => {
-            seekBar.value = audio.currentTime;
-            currentTimeEl.textContent = formatTime(audio.currentTime);
+            if (!seekBar.dragging) {
+                seekBar.value = audio.currentTime;
+                currentTimeEl.textContent = formatTime(audio.currentTime);
+            }
         });
 
         seekBar.addEventListener('input', () => {
+            seekBar.dragging = true;
+            currentTimeEl.textContent = formatTime(seekBar.value);
+        });
+
+        seekBar.addEventListener('change', () => {
             audio.currentTime = seekBar.value;
+            seekBar.dragging = false;
         });
 
         audio.addEventListener('ended', () => {
-            playIcon.style.display = 'block';
-            pauseIcon.style.display = 'none';
-            seekBar.value = 0;
-            currentTimeEl.textContent = "0:00";
+            nextTrack();
         });
+
+        function nextTrack() {
+            currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+            loadTrack(currentTrackIndex);
+            if (isPlaying) audio.play();
+        }
+
+        function prevTrack() {
+            if (audio.currentTime > 3) {
+                audio.currentTime = 0;
+            } else {
+                currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+                loadTrack(currentTrackIndex);
+            }
+            if (isPlaying) audio.play();
+        }
 
         const prevBtn = document.getElementById('prev-btn');
         if (prevBtn) {
-            prevBtn.addEventListener('click', () => {
-                audio.currentTime = 0;
-            });
+            prevBtn.addEventListener('click', prevTrack);
         }
 
         const nextBtn = document.getElementById('next-btn');
         if (nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                // Skips to the end
-                audio.currentTime = audio.duration || 0;
-            });
+            nextBtn.addEventListener('click', nextTrack);
         }
+
+        // --- AUDIO SYNC LOGIC ---
+        // Pause ambient audio when the main playlist starts
+        audio.addEventListener('play', () => {
+            if (ambientAudio) {
+                ambientAudio.pause();
+            }
+        });
+
+        // Resume ambient audio when the main playlist pauses
+        audio.addEventListener('pause', () => {
+            if (ambientAudio && !audio.ended) {
+                ambientAudio.play().catch(e => console.log("Ambient resume blocked"));
+            }
+        });
+
+        // Ensure ambient audio resumes if the playlist stops or finishes without auto-playing next
+        audio.addEventListener('ended', () => {
+            if (!isPlaying && ambientAudio) {
+                ambientAudio.play().catch(e => console.log("Ambient resume blocked"));
+            }
+        });
     }
 });
