@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 back.appendChild(imgBack);
             } else {
                 // Last page back is just decorative or has a logo
-                back.innerHTML = '<div style="display:flex; align-items:center; justify-content:center; height:100%; color:var(--color-dark-green); font-family:\'Playfair Display\', serif; font-size:1.2rem; font-weight:700;">L & M</div>';
+                back.innerHTML = '<div style="display:flex; align-items:center; justify-content:center; height:100%; color:var(--color-dark-green); font-family:\'Playfair Display\', serif; font-size:1.2rem; font-weight:700;">M & L</div>';
             }
             leaf.appendChild(back);
 
@@ -274,15 +274,16 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.remove('no-scroll');
             document.documentElement.classList.remove('no-scroll');
 
-            // Scroll indicator logic
+            // Smooth Scroll Indicator hide/show logic
             const scrollIndicator = document.getElementById('scroll-indicator');
-            const hideOnScroll = () => {
-                if (window.scrollY > 50) {
+            const handleScrollIndicator = () => {
+                if (window.scrollY > 20) {
                     scrollIndicator.classList.add('hidden');
-                    window.removeEventListener('scroll', hideOnScroll);
+                    // Remove the listener so it doesn't reappear
+                    window.removeEventListener('scroll', handleScrollIndicator);
                 }
             };
-            window.addEventListener('scroll', hideOnScroll);
+            window.addEventListener('scroll', handleScrollIndicator);
 
             // Fade out overlay
             if (entryOverlay) {
